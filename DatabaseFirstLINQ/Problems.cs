@@ -30,11 +30,12 @@ namespace DatabaseFirstLINQ
             //ProblemThirteen();
             //ProblemFourteen();
             //ProblemFifteen();
-            ProblemSixteen();
+            //ProblemSixteen();
             //ProblemSeventeen();
             //ProblemEighteen();
             //ProblemNineteen();
             //ProblemTwenty();
+            BonusOne();
         }
 
         // <><><><><><><><> R Actions (Read) <><><><><><><><><>
@@ -278,6 +279,11 @@ namespace DatabaseFirstLINQ
         {
             // Delete the role relationship from the user who has the email "oda@gmail.com" using LINQ.
 
+            var userRole = _context.UserRoles.Where(ur => ur.User.Email == "oda@gmail.com").SingleOrDefault();
+            _context.UserRoles.Remove(userRole);
+
+            _context.SaveChanges();
+
         }
 
         private void ProblemNineteen()
@@ -296,6 +302,10 @@ namespace DatabaseFirstLINQ
         {
             // Delete the user with the email "oda@gmail.com" from the Users table using LINQ.
 
+            var user = _context.Users.Where(u => u.Email == "oda@gmail.com").SingleOrDefault();
+            _context.Users.Remove(user);
+            _context.SaveChanges();
+
         }
 
         // <><><><><><><><> BONUS PROBLEMS <><><><><><><><><>
@@ -305,6 +315,24 @@ namespace DatabaseFirstLINQ
             // Prompt the user to enter in an email and password through the console.
             // Take the email and password and check if the there is a person that matches that combination.
             // Print "Signed In!" to the console if they exists and the values match otherwise print "Invalid Email or Password.".
+
+            Console.WriteLine("Sign into Email: ");
+            string email = Console.ReadLine();
+
+            Console.WriteLine("Enter password: ");
+            string password = Console.ReadLine();
+
+            var users = _context.Users.ToList();
+            {
+                foreach (var user in users)
+                {
+                    if (user.Email == email && user.Password == password)
+
+                        Console.WriteLine("Signed In");
+
+                Console.WriteLine(" Not recognized ");
+                }
+            }
         }
 
         private void BonusTwo()
